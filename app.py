@@ -5,30 +5,37 @@ import joblib
 # Load the trained model
 model = joblib.load('best_model.pkl')
 
-# Title for your web app
-st.title("Loan Default Prediction")
+# Title and description for your web app
+st.title("🏦 Loan Default Prediction")
+st.markdown("""
+    This application predicts whether a client will default on a loan based on various input parameters. 
+    Fill in the details below and click **Predict** to see the result!
+""")
 
 def main():
-    # Create input fields for user input
-    Client_Income = st.number_input("Client Income", min_value=0)
-    Car_Owned = st.selectbox("Car Owned", [0, 1])  # 0 = No, 1 = Yes
-    Bike_Owned = st.selectbox("Bike Owned", [0, 1])  # 0 = No, 1 = Yes
-    Active_Loan = st.selectbox("Active Loan", [0, 1])  # 0 = No, 1 = Yes
-    House_Own = st.selectbox("House Owned", [0, 1])  # 0 = No, 1 = Yes
-    Child_Count = st.number_input("Child Count", min_value=0)
-    Credit_Amount = st.number_input("Credit Amount", min_value=0)
-    Loan_Annuity = st.number_input("Loan Annuity", min_value=0)
+    # Create input fields for user input in columns for better layout
+    col1, col2 = st.columns(2)
 
-    # User inputs for categorical variables
-    Client_Education = st.selectbox("Client Education", ['Graduation', 'Gradudation dropout', 'Junior secondary', 'Post Grad', 'Secondary'])
-    Client_Income_Type = st.selectbox("Client Income Type", ['Commercial', 'Govt Job', 'Maternity leave', 'Retired', 'Service', 'Student'])
-    Client_Marital_Status = st.selectbox("Client Marital Status", ['D', 'M', 'S', 'W'])
-    Client_Gender = st.selectbox("Client Gender", ['Female', 'Male'])
-    Loan_Contract_Type = st.selectbox("Loan Contract Type", ['CL', 'RL'])
-    Workphone_Working = st.selectbox("Workphone Working", [0, 1])  # 0 = No, 1 = Yes
-    Client_Family_Members = st.number_input("Client Family Members", min_value=0)
-    Age_Years = st.number_input("Age (Years)", min_value=0)
-    Employed_Years = st.number_input("Employed (Years)", min_value=0)
+    with col1:
+        Client_Income = st.number_input("Client Income", min_value=0)
+        Car_Owned = st.selectbox("Car Owned", [0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
+        Bike_Owned = st.selectbox("Bike Owned", [0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
+        Active_Loan = st.selectbox("Active Loan", [0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
+        House_Own = st.selectbox("House Owned", [0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
+        Child_Count = st.number_input("Child Count", min_value=0)
+        Credit_Amount = st.number_input("Credit Amount", min_value=0)
+
+    with col2:
+        Loan_Annuity = st.number_input("Loan Annuity", min_value=0)
+        Client_Education = st.selectbox("Client Education", ['Graduation', 'Graduation dropout', 'Junior secondary', 'Post Grad', 'Secondary'])
+        Client_Income_Type = st.selectbox("Client Income Type", ['Commercial', 'Govt Job', 'Maternity leave', 'Retired', 'Service', 'Student'])
+        Client_Marital_Status = st.selectbox("Client Marital Status", ['D', 'M', 'S', 'W'])
+        Client_Gender = st.selectbox("Client Gender", ['Female', 'Male'])
+        Loan_Contract_Type = st.selectbox("Loan Contract Type", ['CL', 'RL'])
+        Workphone_Working = st.selectbox("Workphone Working", [0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
+        Client_Family_Members = st.number_input("Client Family Members", min_value=0)
+        Age_Years = st.number_input("Age (Years)", min_value=0)
+        Employed_Years = st.number_input("Employed (Years)", min_value=0)
 
     # Define a function to map Client_Education to its label-encoded value
     def encode_client_education(education):
@@ -83,23 +90,22 @@ def main():
             education_encoded  # Use the label-encoded value directly
         ] + income_type_encoded + marital_status_encoded + gender_encoded + loan_contract_encoded
 
-
         return np.array(input_features).reshape(1, -1)
 
-
-    # Button to predict
-    if st.button("Predict"):
+    # Button to predict with a more attractive style
+    if st.button("🔍 Predict", key="predict_button"):
         # Preprocess input
         input_data = encode_input()
 
         # Predict using the model
         prediction = model.predict(input_data)
 
-        # Display result
+        # Display result with enhanced visibility
+        st.markdown("---")  # Horizontal line for separation
         if prediction[0] == 0:
-            st.success("The client is predicted to NOT default on the loan.")
+            st.success("✅ **The client is predicted to NOT default on the loan.**")
         else:
-            st.error("The client is predicted to DEFAULT on the loan.")
+            st.error("❌ **The client is predicted to DEFAULT on the loan.**")
 
 if __name__ == '__main__':
     main()
