@@ -1,6 +1,6 @@
-streamlit==1.39.0
-joblib==1.4.2
-scikit-learn==1.2.2  # Replace with your model's version if needed
+streamlit
+joblib
+scikit-learn
 numpy
 pandas
 sklearn
