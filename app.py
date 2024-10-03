@@ -6,7 +6,7 @@ import joblib
 model = joblib.load('best_model.pkl')
 
 # Title and description for your web app
-st.title("🏦 Loan Default Prediction")
+st.title("🚘 Automobile Loan Default Prediction")
 st.markdown("""
     This application predicts whether a client will default on a loan based on various input parameters. 
     Fill in the details below and click **Predict** to see the result!
