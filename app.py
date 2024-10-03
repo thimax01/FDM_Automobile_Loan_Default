@@ -18,10 +18,10 @@ def main():
 
     with col1:
         Client_Income = st.number_input("Client Income", min_value=0)
-        Car_Owned = st.selectbox("Car Owned", ['',0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
-        Bike_Owned = st.selectbox("Bike Owned", ['',0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
-        Active_Loan = st.selectbox("Active Loan", ['',0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
-        House_Own = st.selectbox("House Owned", ['',0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
+        Car_Owned = st.selectbox("Car Owned", ['',0, 1], format_func=lambda x: "Select" if x == '' else ("No" if x == 0 else "Yes"))
+        Bike_Owned = st.selectbox("Bike Owned", ['',0, 1], format_func=lambda x: "Select" if x == '' else ("No" if x == 0 else "Yes"))
+        Active_Loan = st.selectbox("Active Loan", ['',0, 1], format_func=lambda x: "Select" if x == '' else ("No" if x == 0 else "Yes"))
+        House_Own = st.selectbox("House Owned", ['',0, 1], format_func=lambda x: "Select" if x == '' else ("No" if x == 0 else "Yes"))
         Child_Count = st.number_input("Child Count", min_value=0)
         Credit_Amount = st.number_input("Credit Amount", min_value=0)
 
@@ -32,7 +32,7 @@ def main():
         Client_Marital_Status = st.selectbox("Client Marital Status", ['','D', 'M', 'S', 'W'])
         Client_Gender = st.selectbox("Client Gender", ['','Female', 'Male'])
         Loan_Contract_Type = st.selectbox("Loan Contract Type", ['','CL', 'RL'])
-        Workphone_Working = st.selectbox("Workphone Working", ['',0, 1], format_func=lambda x: "No" if x == 0 else "Yes")
+        Workphone_Working = st.selectbox("Workphone Working", ['',0, 1], format_func=lambda x: "Select" if x == '' else ("No" if x == 0 else "Yes"))
         Client_Family_Members = st.number_input("Client Family Members", min_value=0)
         Age_Years = st.number_input("Age (Years)", min_value=0)
         Employed_Years = st.number_input("Employed (Years)", min_value=0)
